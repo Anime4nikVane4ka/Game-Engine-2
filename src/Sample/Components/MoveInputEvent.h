@@ -3,7 +3,6 @@
 
 struct MoveInputEvent
 {
-
 };
 
 #endif //MOVEINPUTEVENT_H
