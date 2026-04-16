@@ -38,21 +38,21 @@ class ComponentStorage final : public BaseComponentStorage {
 
 public:
     // ToDo:
-    ComponentStorage(internal::IWorldInternal& w, const int id);
+    ComponentStorage(internal::IWorldInternal& w, const int id): _world(w), _id(id) {}
 
-    bool Has(const int e) const override
+    bool Has(const int entityIid) const override
     {
         // ToDo: Проверка наличия компонента на сущности
         return entityIid < _has.size() && _has[entityIid];
     }
 
-    T& Get(const int e)
+    T& Get(const int entityIid)
     {
         // ToDo: Получение компонента с сущности
         return _data[_sparse[entityIid]]
     }
 
-    T& Add(const int e, const T& value)
+    T& Add(const int entityIid, const T& value)
     {
         // ToDo: Проверка необходимости ресайза
         Resize((entityIid / 64 + 1) * 64, _data.size() == _count + 1 ? _data.size() + 64 : _data.size());
@@ -65,7 +65,7 @@ public:
         // ToDo: Уведомление мира об изменении набора компонентов на сущности НАДО СДЕЛАТЬ
     }
 
-    void Remove(const int e) override
+    void Remove(const int entityIid) override
     {
         // ToDo: FastRemove компонента с сущности
         int arrayIndex = _sparse[entityIid];
@@ -90,8 +90,15 @@ public:
     }
 
     // ToDo:
-    int Count() const override;
-    int Id() const override;
+    int Count() const override 
+    { 
+        return _count; 
+    }
+
+    int Id() const override 
+    { 
+       return _id; 
+    }
 };
 
 #endif //COMPONENTSTORAGE_H
