@@ -36,6 +36,8 @@ public:
     template <typename T>
     std::shared_ptr<ComponentStorage<T>> GetRawStorage()
     {
+        // ToDo: Логика получения указателя на хранилище по его типу из мапы
+        // или создания хранилища, если его еще нет
         const auto typeHash = typeid(T).hash_code();
         const auto foundStorageIterator = _componentStoragesHash.find(typeHash);
         if (foundStorageIterator != _componentStoragesHash.end())
@@ -49,19 +51,15 @@ public:
             _componentStorages.reserve(newSize);
         }
         _componentStorages.push_back(storage);
-        return storage;
-
-        // ToDo: Логика получения указателя на хранилище по его типу из мапы
-        // или создания хранилища, если его еще нет
+        return storage;        
     }
 
     template <typename T>
     ComponentStorage<T>& GetStorage()
-    {
-        return *GetRawStorage<T>();
-
+    {        
         // ToDo: Логика получения ссылки на хранилище по его типу из мапы
         // или создания хранилища, если его еще нет
+        return *GetRawStorage<T>();        
     }
 };
 

@@ -50,7 +50,7 @@ void World::RemoveEntity(int ent)
     if (!components.empty())
     {
         for (int i = components.size() - 1; i >= 0; i--)
-            _componentStorages[components[i]]->Remove(e);
+            _componentStorages[components[i]]->Remove(ent);
     } else
     {
         entity.Remove();
@@ -74,6 +74,8 @@ bool World::UnpackEntity(const EntityId &eId, int &e) const
 bool World::IsEntityAlive(const int e) const
 {
     // ToDo: Логика проверки жива сущность и корректна или нет
+    if (e < 0 || e >= _entities.size())
+        return false;
     auto &entity = _entities[e];
-    return !entity.IsRemoved() && entity.Id > 0 && entity.Id < _entities.size() && e == entity.Id;
+    return !entity.IsRemoved() && e == entity.Id;
 }

@@ -69,5 +69,6 @@ bool EntityId::operator!=(const EntityId &other) const
 
 std::ostream& operator<<(std::ostream &os, const EntityId &eId)
 {
-    // ToDo: Красивый ввывод сущности в строчку
+    os << "EntityId(Id: " << eId.Id << ", Gen: " << eId.Gen() << ")";
+    return os;
 }

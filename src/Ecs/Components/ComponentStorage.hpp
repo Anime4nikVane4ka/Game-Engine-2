@@ -1,6 +1,8 @@
 #ifndef COMPONENTSTORAGE_H
 #define COMPONENTSTORAGE_H
 
+#include <algorithm>
+#include <stdexcept>
 #include <vector>
 
 #include "BaseComponentStorage.h"
@@ -43,13 +45,13 @@ public:
     bool Has(const int entityIid) const override
     {
         // ToDo: Проверка наличия компонента на сущности
-        return entityIid < _has.size() && _has[entityIid];
+        return entityIid >= 0 && entityIid < _sparse.size() && _sparse[entityIid] >= 0;
     }
 
     T& Get(const int entityIid)
     {
         // ToDo: Получение компонента с сущности
-        return _data[_sparse[entityIid]]
+        return _data[_sparse[entityIid]];
     }
 
     T& Add(const int entityIid, const T& value)
@@ -63,6 +65,7 @@ public:
         _count++;
         // ToDo: Уведомление мира об изменении набора компонентов на сущности
         _world.EntityComponentsChanged(entityIid, _id, true);
+        return _data[_sparse[entityIid]];
     }
 
     void Remove(const int entityIid) override
