@@ -1,7 +1,10 @@
 #ifndef FILTER_H
 #define FILTER_H
 
+#include <cstddef>
+#include <iterator>
 #include <memory>
+#include <span>
 #include <utility>
 #include <vector>
 
