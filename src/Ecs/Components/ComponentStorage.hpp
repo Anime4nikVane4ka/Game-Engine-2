@@ -21,6 +21,19 @@ class ComponentStorage final : public BaseComponentStorage {
     void Resize(const int sparseSize, const int dataSize)
     {
         // ToDo: перевыделение памяти под вектора
+        int oldSparseSize = _sparse.size();
+        if (oldSparseSize < sparseSize)
+        {
+            _sparse.resize(sparseSize);
+            std::fill_n(_sparse.data() + oldSparseSize, sparseSize - oldSparseSize, -1);
+        }
+        int oldDataSize = _dense.size();
+        if (oldDataSize < dataSize)
+        {
+            _dense.resize(dataSize);
+            _data.resize(dataSize);
+            std::fill_n(_dense.data() + oldDataSize, dataSize - oldDataSize, -1);
+        }
     }
 
 public:
@@ -30,33 +43,51 @@ public:
     bool Has(const int e) const override
     {
         // ToDo: Проверка наличия компонента на сущности
+        return entityIid < _has.size() && _has[entityIid];
     }
 
     T& Get(const int e)
     {
         // ToDo: Получение компонента с сущности
+        return _data[_sparse[entityIid]]
     }
 
     T& Add(const int e, const T& value)
     {
         // ToDo: Проверка необходимости ресайза
-
+        Resize((entityIid / 64 + 1) * 64, _data.size() == _count + 1 ? _data.size() + 64 : _data.size());
         // ToDo: Добавление компонента на сущность
+        _data[_count] = value;
+        _dense[_count] = entityIid;
+        _sparse[entityIid] = _count;
+        _count++;
 
-        // ToDo: Уведомление мира об изменении набора компонентов на сущности
+        // ToDo: Уведомление мира об изменении набора компонентов на сущности НАДО СДЕЛАТЬ
     }
 
     void Remove(const int e) override
     {
         // ToDo: FastRemove компонента с сущности
+        int arrayIndex = _sparse[entityIid];
+        int lastEntityIid = _dense[--_count];
+        _data[arrayIndex] = _data[_count];
+        _dense[arrayIndex] = lastEntityIid;
+        _sparse[lastEntityIid] = arrayIndex;
+        _sparse[entityIid] = -1;  
 
         // ToDo: Уведомление мира об изменении набора компонентов на сущности
     }
 
     // ToDo: возврат всех компонентов данного типа
-    std::span<const T> All() const;
+    std::span<const T> All() const
+    {
+        return std::span(_data.begin(), _count);
+    }
     // ToDo: возврат всех сущностей с компонентом данного типа
-    std::span<const int> Entities() const override;
+    std::span<const int> Entities() const override
+    {
+        return std::span(_dense.begin(), _count);
+    }
 
     // ToDo:
     int Count() const override;
