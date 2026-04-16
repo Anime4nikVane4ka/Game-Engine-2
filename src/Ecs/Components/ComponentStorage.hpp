@@ -61,12 +61,16 @@ public:
         _dense[_count] = entityIid;
         _sparse[entityIid] = _count;
         _count++;
-
-        // ToDo: Уведомление мира об изменении набора компонентов на сущности НАДО СДЕЛАТЬ
+        // ToDo: Уведомление мира об изменении набора компонентов на сущности
+        _world.EntityComponentsChanged(entityIid, _id, true);
     }
 
     void Remove(const int entityIid) override
     {
+#if DEBUG
+        if (!_world.IsEntityAlive(entityIid))
+            throw std::runtime_error("Try to remove from dead entity!");
+#endif
         // ToDo: FastRemove компонента с сущности
         int arrayIndex = _sparse[entityIid];
         int lastEntityIid = _dense[--_count];
@@ -74,8 +78,8 @@ public:
         _dense[arrayIndex] = lastEntityIid;
         _sparse[lastEntityIid] = arrayIndex;
         _sparse[entityIid] = -1;  
-
         // ToDo: Уведомление мира об изменении набора компонентов на сущности
+        _world.EntityComponentsChanged(entityIid, _id, false);
     }
 
     // ToDo: возврат всех компонентов данного типа
