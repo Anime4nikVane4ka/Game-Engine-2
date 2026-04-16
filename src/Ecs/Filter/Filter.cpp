@@ -4,6 +4,7 @@
 
 size_t Filter::FindMinComponentStorage() const
 {
+    // ToDo: Логика поиска хранилища с наименьшим колчиество сущностей
     size_t minStorageIndex = 0;
     int minCount = std::numeric_limits<int>::max();
 
@@ -22,6 +23,7 @@ size_t Filter::FindMinComponentStorage() const
 
 bool Filter::Iterator::HasAllComponents() const
 {
+    // ToDo: Логика проверки, что сущность имеет все необходимые для фильтра компоненты
     for (size_t i = 0; i < _storages.size(); i++)
     {
         if (i == _minStorageIndex)
@@ -36,6 +38,8 @@ bool Filter::Iterator::HasAllComponents() const
 
 Filter::Iterator& Filter::Iterator::Increment()
 {
+    // ToDo: Логика взятия следующей подходящей (имеющей все необходимые компоненты)
+    // сущности итератором
     while (++_current < _minStorageEntities.size())
     {
         _currentEntity = _minStorageEntities[_current];
@@ -47,6 +51,7 @@ Filter::Iterator& Filter::Iterator::Increment()
 
 Filter::Iterator::value_type Filter::Iterator::operator*() const
 {
+    // ToDo: Логика возврата текущей сущности итератором
     return _currentEntity;
 }
 
@@ -60,8 +65,7 @@ bool Filter::Iterator::operator!=(const Iterator &other) const
     return _current != other._current;
 }
 
-Filter::Filter(World& world,
-    const std::vector<std::shared_ptr<BaseComponentStorage>>& componentStorages)
+Filter::Filter(World& world, const std::vector<std::shared_ptr<BaseComponentStorage>>& componentStorages)
     : _world(world),
       _componentStorages(componentStorages),
       _minStorageIndex(FindMinComponentStorage())
@@ -86,6 +90,9 @@ Filter::Iterator::Iterator(World& world,
 
 Filter::Iterator Filter::begin()
 {
+    // ToDo: Ищем наименьшее по количеству сущностей хранилище компонентов
+    // ToDo: создаем и возвращаем итератор по этому хранилищу, который указывает на
+    // первую подходящую сущность
     _minStorageIndex = FindMinComponentStorage();
     const auto& minStorageEntities = _componentStorages[_minStorageIndex]->Entities();
     const int current = 0;
@@ -95,6 +102,8 @@ Filter::Iterator Filter::begin()
 
 Filter::Iterator Filter::end()
 {
+    // ToDo: создаем и возвращаем итератор по минимальному хранилищу, который указывает на
+    // конец итерирования (current = minStorageEntities.size())
     _minStorageIndex = FindMinComponentStorage();
     const auto& minStorageEntities = _componentStorages[_minStorageIndex]->Entities();
     const int current = minStorageEntities.size();

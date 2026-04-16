@@ -6,6 +6,15 @@ set(SOURCES main.cpp
         Sample/Systems/InitSystem.h
         Sample/Components/PositionComponent.h
         Sample/Components/MovementComponent.h
+        Sample/Components/AsteroidComponent.h
+        Sample/Components/BoxColliderComponent.h
+        Sample/Components/BulletComponent.h
+        Sample/Components/CircleColliderComponent.h
+        Sample/Components/CircleShapeComponent.h
+        Sample/Components/CollisionComponent.h
+        Sample/Components/PlayerComponent.h
+        Sample/Components/RectangleShapeComponent.h
+        Sample/Components/ShooterComponent.h
         Sample/Systems/InputSystem.cpp
         Sample/Systems/InputSystem.h
         Sample/Components/MoveInputEvent.h

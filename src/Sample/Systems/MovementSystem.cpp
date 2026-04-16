@@ -4,7 +4,7 @@ void MovementSystem::Print(int ent)
 {
     auto& position = _positionComponents.Get(ent);
 
-    std::cout << ent << " Pos: " << position.X << ", " << position.Y << std::endl;
+    std::cout << ent << " Pos: " << position.Position.x << ", " << position.Position.y << std::endl;
 }
 
 void MovementSystem::OnInit()
@@ -21,8 +21,8 @@ void MovementSystem::OnUpdate()
             auto& position = _positionComponents.Get(ent);
             auto& movement = _movementComponents.Get(ent);
 
-            position.X += movement.Speed * movement.Direction.x;
-            position.Y += movement.Speed * movement.Direction.y;
+            position.Position.x += movement.Speed * movement.Direction.x;
+            position.Position.y += movement.Speed * movement.Direction.y;
 
             Print(ent);
         }
