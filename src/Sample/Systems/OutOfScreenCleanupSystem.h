@@ -26,7 +26,7 @@ class OutOfScreenCleanupSystem final : public ISystem
     bool IsOutsideScreen(int entity) const;
 
 public:
-    OutOfScreenCleanupSystem(World& world, const float screenWidth, const float screenHeight)
+    OutOfScreenCleanupSystem(World& world)
         : ISystem(world),
           _positions(world.GetStorage<PositionComponent>()),
           _circleColliders(world.GetStorage<CircleColliderComponent>()),
@@ -38,9 +38,7 @@ public:
           _bulletEntities(FilterBuilder(world)
               .With<BulletComponent>()
               .With<PositionComponent>()
-              .Build()),
-          _screenWidth(screenWidth),
-          _screenHeight(screenHeight)
+              .Build())
     {
     }
 

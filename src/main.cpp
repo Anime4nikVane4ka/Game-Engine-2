@@ -47,7 +47,7 @@ int main() {
     systems.AddSystem(std::make_shared<ScoringSystem>(world));
     systems.AddSystem(std::make_shared<GameOverSystem>(world));
     systems.AddSystem(std::make_shared<RenderSystem>(world, window));
-    systems.AddSystem(std::make_shared<OutOfScreenCleanupSystem>(world, windowWidth, windowHeight));
+    systems.AddSystem(std::make_shared<OutOfScreenCleanupSystem>(world));
 
     while (window.isOpen()) {
         systems.Update();

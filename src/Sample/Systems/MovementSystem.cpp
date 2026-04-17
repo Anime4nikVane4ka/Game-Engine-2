@@ -1,5 +1,9 @@
 #include "MovementSystem.h"
 
+#include <algorithm>
+
+#include "../../Config.h"
+
 void MovementSystem::Print(int ent)
 {
     auto &position = _positionComponents.Get(ent);
@@ -9,7 +13,21 @@ void MovementSystem::Print(int ent)
 
 void MovementSystem::OnInit()
 {
+    Config config("config.txt");
+    _windowWidth = config.getFloat("window_width");
+}
 
+void MovementSystem::ClampPlayerPosition(const int entity)
+{
+    if (!_players.Has(entity))
+        return;
+
+    float halfWidth = 0.0f;
+    if (_boxColliders.Has(entity))
+        halfWidth = _boxColliders.Get(entity).Extents.x;
+
+    auto& position = _positionComponents.Get(entity);
+    position.Position.x = std::clamp(position.Position.x, halfWidth, _windowWidth - halfWidth);
 }
 
 void MovementSystem::OnUpdate()
@@ -24,5 +42,7 @@ void MovementSystem::OnUpdate()
 
         position.Position.x += movement.Speed * movement.Direction.x;
         position.Position.y += movement.Speed * movement.Direction.y;
+
+        ClampPlayerPosition(ent);
     }
 }

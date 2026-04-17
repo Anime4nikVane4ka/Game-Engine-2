@@ -2,8 +2,13 @@
 
 #include <vector>
 
+#include "../../Config.h"
+
 void OutOfScreenCleanupSystem::OnInit()
 {
+    Config config("config.txt");
+    _screenWidth = config.getFloat("window_width");
+    _screenHeight = config.getFloat("window_height");
 }
 
 bool OutOfScreenCleanupSystem::IsOutsideScreen(const int entity) const
