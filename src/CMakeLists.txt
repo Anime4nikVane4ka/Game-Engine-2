@@ -15,8 +15,10 @@ set(SOURCES main.cpp
         Sample/Components/CircleShapeComponent.h
         Sample/Components/CollisionComponent.h
         Sample/Components/GameOverEvent.h
+        Sample/Components/GameStateComponent.h
         Sample/Components/PlayerComponent.h
         Sample/Components/RectangleShapeComponent.h
+        Sample/Components/RestartInputEvent.h
         Sample/Components/ScoreIncreaseEvent.h
         Sample/Components/ShooterComponent.h
         Sample/Systems/InputSystem.cpp
@@ -27,6 +29,12 @@ set(SOURCES main.cpp
         Sample/Systems/CollisionDetectionSystem.h
         Sample/Systems/CollisionHandlerSystem.cpp
         Sample/Systems/CollisionHandlerSystem.h
+        Sample/Systems/GameOverSystem.cpp
+        Sample/Systems/GameOverSystem.h
+        Sample/Systems/RenderSystem.cpp
+        Sample/Systems/RenderSystem.h
+        Sample/Systems/RestartSystem.cpp
+        Sample/Systems/RestartSystem.h
         Sample/Systems/ScoringSystem.cpp
         Sample/Systems/ScoringSystem.h
         Sample/Systems/ShootSystem.cpp

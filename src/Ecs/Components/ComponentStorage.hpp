@@ -57,7 +57,7 @@ public:
     T& Add(const int entityIid, const T& value)
     {
         // ToDo: Проверка необходимости ресайза
-        Resize((entityIid / 64 + 1) * 64, _data.size() == _count + 1 ? _data.size() + 64 : _data.size());
+        Resize((entityIid / 64 + 1) * 64, _count >= _data.size() ? _data.size() + 64 : _data.size());
         // ToDo: Добавление компонента на сущность
         _data[_count] = value;
         _dense[_count] = entityIid;
@@ -109,3 +109,4 @@ public:
 };
 
 #endif //COMPONENTSTORAGE_H
+

@@ -38,8 +38,9 @@ void CollisionHandlerSystem::OnUpdate()
             }
             else if (_players.Has(collidedEntity))
             {
+                const int score = _players.Get(collidedEntity).Score;
                 const int eventEntity = world.CreateEntity();
-                _gameOverEvents.Add(eventEntity, GameOverEvent(collidedEntity));
+                _gameOverEvents.Add(eventEntity, GameOverEvent(collidedEntity, score));
 
                 AddEntityToRemove(entitiesToRemove, entity);
                 AddEntityToRemove(entitiesToRemove, collidedEntity);
@@ -54,4 +55,6 @@ void CollisionHandlerSystem::OnUpdate()
             world.RemoveEntity(entity);
     }
 }
+
+
 
