@@ -14,13 +14,21 @@ set(SOURCES main.cpp
         Sample/Components/CircleColliderComponent.h
         Sample/Components/CircleShapeComponent.h
         Sample/Components/CollisionComponent.h
+        Sample/Components/GameOverEvent.h
         Sample/Components/PlayerComponent.h
         Sample/Components/RectangleShapeComponent.h
+        Sample/Components/ScoreIncreaseEvent.h
         Sample/Components/ShooterComponent.h
         Sample/Systems/InputSystem.cpp
         Sample/Systems/InputSystem.h
         Sample/Systems/AsteroidSpawnSystem.cpp
         Sample/Systems/AsteroidSpawnSystem.h
+        Sample/Systems/CollisionDetectionSystem.cpp
+        Sample/Systems/CollisionDetectionSystem.h
+        Sample/Systems/CollisionHandlerSystem.cpp
+        Sample/Systems/CollisionHandlerSystem.h
+        Sample/Systems/ScoringSystem.cpp
+        Sample/Systems/ScoringSystem.h
         Sample/Systems/ShootSystem.cpp
         Sample/Systems/ShootSystem.h
         Sample/Components/ShootInputEvent.h
