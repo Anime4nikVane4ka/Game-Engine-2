@@ -9,6 +9,7 @@
 #include "Sample/Systems/AsteroidSpawnSystem.h"
 #include "Sample/Systems/CollisionDetectionSystem.h"
 #include "Sample/Systems/CollisionHandlerSystem.h"
+#include "Sample/Systems/CooldownBoostSystem.h"
 #include "Sample/Systems/GameOverSystem.h"
 #include "Sample/Systems/InputSystem.h"
 #include "Sample/Systems/MovementSystem.h"
@@ -18,6 +19,7 @@
 #include "Sample/Systems/RestartSystem.h"
 #include "Sample/Systems/ScoringSystem.h"
 #include "Sample/Systems/ShootSystem.h"
+#include "Sample/Systems/UfoSpawnSystem.h"
 
 int main() {
     // Пример использования
@@ -41,10 +43,12 @@ int main() {
     systems.AddSystem(std::make_shared<RestartSystem>(world));
     systems.AddSystem(std::make_shared<ShootSystem>(world));
     systems.AddSystem(std::make_shared<AsteroidSpawnSystem>(world,windowWidth));
+    systems.AddSystem(std::make_shared<UfoSpawnSystem>(world, windowWidth));
     systems.AddSystem(std::make_shared<MovementSystem>(world));
     systems.AddSystem(std::make_shared<CollisionDetectionSystem>(world));
     systems.AddSystem(std::make_shared<CollisionHandlerSystem>(world));
     systems.AddSystem(std::make_shared<ScoringSystem>(world));
+    systems.AddSystem(std::make_shared<CooldownBoostSystem>(world));
     systems.AddSystem(std::make_shared<GameOverSystem>(world));
     systems.AddSystem(std::make_shared<RenderSystem>(world, window));
     systems.AddSystem(std::make_shared<OutOfScreenCleanupSystem>(world));

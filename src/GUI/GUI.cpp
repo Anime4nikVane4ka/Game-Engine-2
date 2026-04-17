@@ -82,27 +82,11 @@ void GUI::DrawUfoSpawnControls(World& world)
         ImGui::Text("UFO spawn");
         ImGui::SliderFloat("UFO min period, ms", &settings.MinSpawnPeriodMs, 1.0f, 15000.0f, "%.0f");
         ImGui::SliderFloat("UFO max period, ms", &settings.MaxSpawnPeriodMs, 1.0f, 15000.0f, "%.0f");
-        ImGui::SliderFloat("UFO speed", &settings.Speed, 0.0f, 20.0f, "%.1f");
-        ImGui::SliderFloat("UFO width", &settings.Width, 1.0f, 200.0f, "%.0f");
-        ImGui::SliderFloat("UFO height", &settings.Height, 1.0f, 100.0f, "%.0f");
-        ImGui::SliderFloat("UFO min Y", &settings.MinY, 0.0f, 360.0f, "%.0f");
-        ImGui::SliderFloat("UFO max Y", &settings.MaxY, 0.0f, 360.0f, "%.0f");
-        ImGui::SliderFloat("Cooldown boost, ms", &settings.CooldownBoostDurationMs, 0.0f, 15000.0f, "%.0f");
 
         if (settings.MinSpawnPeriodMs < 1.0f)
             settings.MinSpawnPeriodMs = 1.0f;
         if (settings.MaxSpawnPeriodMs < settings.MinSpawnPeriodMs)
             settings.MaxSpawnPeriodMs = settings.MinSpawnPeriodMs;
-        if (settings.Speed < 0.0f)
-            settings.Speed = 0.0f;
-        if (settings.Width < 1.0f)
-            settings.Width = 1.0f;
-        if (settings.Height < 1.0f)
-            settings.Height = 1.0f;
-        if (settings.MaxY < settings.MinY)
-            settings.MaxY = settings.MinY;
-        if (settings.CooldownBoostDurationMs < 0.0f)
-            settings.CooldownBoostDurationMs = 0.0f;
     }
     else
     {

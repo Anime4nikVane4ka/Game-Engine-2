@@ -10,6 +10,7 @@
 #include "../Components/BulletComponent.h"
 #include "../Components/CircleColliderComponent.h"
 #include "../Components/PositionComponent.h"
+#include "../Components/UfoComponent.h"
 
 class OutOfScreenCleanupSystem final : public ISystem
 {
@@ -19,6 +20,7 @@ class OutOfScreenCleanupSystem final : public ISystem
 
     Filter _asteroidEntities;
     Filter _bulletEntities;
+    Filter _ufoEntities;
 
     float _screenWidth;
     float _screenHeight;
@@ -37,6 +39,10 @@ public:
               .Build()),
           _bulletEntities(FilterBuilder(world)
               .With<BulletComponent>()
+              .With<PositionComponent>()
+              .Build()),
+          _ufoEntities(FilterBuilder(world)
+              .With<UfoComponent>()
               .With<PositionComponent>()
               .Build())
     {

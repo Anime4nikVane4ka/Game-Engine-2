@@ -12,6 +12,8 @@
 #include "../Components/BulletComponent.h"
 #include "../Components/CircleShapeComponent.h"
 #include "../Components/CollisionComponent.h"
+#include "../Components/CooldownBoostComponent.h"
+#include "../Components/CooldownBoostEvent.h"
 #include "../Components/GameOverEvent.h"
 #include "../Components/GameStateComponent.h"
 #include "../Components/MovementComponent.h"
@@ -20,6 +22,8 @@
 #include "../Components/RestartInputEvent.h"
 #include "../Components/ScoreIncreaseEvent.h"
 #include "../Components/ShooterComponent.h"
+#include "../Components/UfoComponent.h"
+#include "../Components/UfoSpawnRequestEvent.h"
 
 class RestartSystem final : public ISystem
 {
@@ -35,8 +39,12 @@ class RestartSystem final : public ISystem
     Filter _restartInputEvents;
     Filter _asteroids;
     Filter _bullets;
+    Filter _ufos;
     Filter _playersFilter;
     Filter _scoreIncreaseEvents;
+    Filter _cooldownBoostEvents;
+    Filter _cooldownBoosts;
+    Filter _ufoSpawnRequests;
     Filter _gameOverEvents;
     Filter _gameStatesFilter;
 
@@ -69,11 +77,23 @@ public:
           _bullets(FilterBuilder(world)
               .With<BulletComponent>()
               .Build()),
+          _ufos(FilterBuilder(world)
+              .With<UfoComponent>()
+              .Build()),
           _playersFilter(FilterBuilder(world)
               .With<PlayerComponent>()
               .Build()),
           _scoreIncreaseEvents(FilterBuilder(world)
               .With<ScoreIncreaseEvent>()
+              .Build()),
+          _cooldownBoostEvents(FilterBuilder(world)
+              .With<CooldownBoostEvent>()
+              .Build()),
+          _cooldownBoosts(FilterBuilder(world)
+              .With<CooldownBoostComponent>()
+              .Build()),
+          _ufoSpawnRequests(FilterBuilder(world)
+              .With<UfoSpawnRequestEvent>()
               .Build()),
           _gameOverEvents(FilterBuilder(world)
               .With<GameOverEvent>()

@@ -20,6 +20,8 @@ set(SOURCES main.cpp
         Sample/Components/CircleColliderComponent.h
         Sample/Components/CircleShapeComponent.h
         Sample/Components/CollisionComponent.h
+        Sample/Components/CooldownBoostComponent.h
+        Sample/Components/CooldownBoostEvent.h
         Sample/Components/GameOverEvent.h
         Sample/Components/GameStateComponent.h
         Sample/Components/GuiToggleEvent.h
@@ -30,6 +32,9 @@ set(SOURCES main.cpp
         Sample/Components/RestartInputEvent.h
         Sample/Components/ScoreIncreaseEvent.h
         Sample/Components/ShooterComponent.h
+        Sample/Components/UfoComponent.h
+        Sample/Components/UfoSpawnRequestEvent.h
+        Sample/Components/UfoSpawnSettingsComponent.h
         Sample/Systems/InputSystem.cpp
         Sample/Systems/InputSystem.h
         Sample/Systems/AsteroidSpawnSystem.cpp
@@ -38,6 +43,8 @@ set(SOURCES main.cpp
         Sample/Systems/CollisionDetectionSystem.h
         Sample/Systems/CollisionHandlerSystem.cpp
         Sample/Systems/CollisionHandlerSystem.h
+        Sample/Systems/CooldownBoostSystem.cpp
+        Sample/Systems/CooldownBoostSystem.h
         Sample/Systems/GameOverSystem.cpp
         Sample/Systems/GameOverSystem.h
         Sample/Systems/PauseSystem.cpp
@@ -50,6 +57,8 @@ set(SOURCES main.cpp
         Sample/Systems/ScoringSystem.h
         Sample/Systems/ShootSystem.cpp
         Sample/Systems/ShootSystem.h
+        Sample/Systems/UfoSpawnSystem.cpp
+        Sample/Systems/UfoSpawnSystem.h
         Sample/Components/ShootInputEvent.h
 )
 

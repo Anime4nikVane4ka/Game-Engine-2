@@ -65,9 +65,17 @@ void RestartSystem::OnUpdate()
         entitiesToRemove.push_back(entity);
     for (const int entity : _bullets)
         entitiesToRemove.push_back(entity);
+    for (const int entity : _ufos)
+        entitiesToRemove.push_back(entity);
     for (const int entity : _playersFilter)
         entitiesToRemove.push_back(entity);
     for (const int entity : _scoreIncreaseEvents)
+        entitiesToRemove.push_back(entity);
+    for (const int entity : _cooldownBoostEvents)
+        entitiesToRemove.push_back(entity);
+    for (const int entity : _cooldownBoosts)
+        entitiesToRemove.push_back(entity);
+    for (const int entity : _ufoSpawnRequests)
         entitiesToRemove.push_back(entity);
     for (const int entity : _gameOverEvents)
         entitiesToRemove.push_back(entity);
@@ -81,4 +89,3 @@ void RestartSystem::OnUpdate()
     ResetGameState();
     CreatePlayer();
 }
-

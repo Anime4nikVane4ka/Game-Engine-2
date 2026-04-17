@@ -53,6 +53,12 @@ void OutOfScreenCleanupSystem::OnUpdate()
             entitiesToRemove.push_back(entity);
     }
 
+    for (const int entity : _ufoEntities)
+    {
+        if (IsOutsideScreen(entity))
+            entitiesToRemove.push_back(entity);
+    }
+
     for (const int entity : entitiesToRemove)
     {
         if (world.IsEntityAlive(entity))
