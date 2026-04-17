@@ -21,7 +21,7 @@ class ShootSystem final : public ISystem
     ComponentStorage<ShootInputEvent>& _shootInputEvents;
     ComponentStorage<ShooterComponent>& _shooterComponents;
 
-    // Компоненты снаряда:
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ:
     ComponentStorage<PositionComponent>& _positions;
     ComponentStorage<MovementComponent>& _movements;
     ComponentStorage<BulletComponent>& _bullets;

@@ -4,8 +4,7 @@
 
 #include <optional>
 #include <string>
-
-#include <SFML/Window/Keyboard.hpp>
+#include <vector>
 
 #include "../../Config.h"
 
@@ -69,13 +68,21 @@ void RenderSystem::HandleWindowEvents()
             ShutdownImGui();
             _window.close();
         }
-
-        const auto* keyPressed = event->getIf<sf::Event::KeyPressed>();
-        if (keyPressed != nullptr && keyPressed->code == sf::Keyboard::Key::G)
-        {
-            _gui.ToggleCollapsed();
-        }
     }
+}
+
+void RenderSystem::HandleGuiToggleEvents()
+{
+    std::vector<int> eventsToRemove;
+
+    for (const int eventEntity : _guiToggleEvents)
+    {
+        _gui.ToggleCollapsed();
+        eventsToRemove.push_back(eventEntity);
+    }
+
+    for (const int eventEntity : eventsToRemove)
+        world.RemoveEntity(eventEntity);
 }
 
 void RenderSystem::DrawGame()
@@ -131,6 +138,11 @@ void RenderSystem::DrawGameOver()
     DrawTextCentered("Game Over\nScore: " + std::to_string(GetGameOverScore()));
 }
 
+void RenderSystem::DrawPause()
+{
+    DrawTextCentered("Pause");
+}
+
 void RenderSystem::OnUpdate()
 {
     HandleWindowEvents();
@@ -138,11 +150,14 @@ void RenderSystem::OnUpdate()
     if (!_window.isOpen())
         return;
 
+    HandleGuiToggleEvents();
     ImGui::SFML::Update(_window, _imguiClock.restart());
 
     _window.clear(sf::Color::Black);
 
-    if (IsGameOver())
+    if (PauseState::IsPaused(_pauseStates))
+        DrawPause();
+    else if (IsGameOver())
         DrawGameOver();
     else
         DrawGame();

@@ -116,6 +116,9 @@ void AsteroidSpawnSystem::OnInit()
 
 void AsteroidSpawnSystem::OnUpdate()
 {
+    if (PauseState::IsPaused(_pauseStates))
+        return;
+
     UpdateSpawnSettings();
 
     if (IsGameOver())

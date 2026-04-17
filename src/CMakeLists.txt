@@ -22,6 +22,9 @@ set(SOURCES main.cpp
         Sample/Components/CollisionComponent.h
         Sample/Components/GameOverEvent.h
         Sample/Components/GameStateComponent.h
+        Sample/Components/GuiToggleEvent.h
+        Sample/Components/PauseStateComponent.h
+        Sample/Components/PauseToggleEvent.h
         Sample/Components/PlayerComponent.h
         Sample/Components/RectangleShapeComponent.h
         Sample/Components/RestartInputEvent.h
@@ -37,6 +40,8 @@ set(SOURCES main.cpp
         Sample/Systems/CollisionHandlerSystem.h
         Sample/Systems/GameOverSystem.cpp
         Sample/Systems/GameOverSystem.h
+        Sample/Systems/PauseSystem.cpp
+        Sample/Systems/PauseSystem.h
         Sample/Systems/RenderSystem.cpp
         Sample/Systems/RenderSystem.h
         Sample/Systems/RestartSystem.cpp

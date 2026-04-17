@@ -27,7 +27,7 @@ void ShootSystem::OnUpdate()
             && _shooterComponents.Has(shooterEntity)
             && _positions.Has(shooterEntity))
         {
-            auto& shooter = _shooterComponents.Get(shooterEntity); // Получение компонента стрельбы
+            auto& shooter = _shooterComponents.Get(shooterEntity); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             if (shooter.CanShoot)
             {
                 const auto& shooterPosition = _positions.Get(shooterEntity);

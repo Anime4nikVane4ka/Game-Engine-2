@@ -14,6 +14,8 @@
 
 #include "../Components/CircleShapeComponent.h"
 #include "../Components/GameStateComponent.h"
+#include "../Components/GuiToggleEvent.h"
+#include "../Components/PauseStateComponent.h"
 #include "../Components/PlayerComponent.h"
 #include "../Components/PositionComponent.h"
 #include "../Components/RectangleShapeComponent.h"
@@ -33,18 +35,22 @@ class RenderSystem final : public ISystem
     ComponentStorage<RectangleShapeComponent>& _rectangleShapes;
     ComponentStorage<PlayerComponent>& _players;
     ComponentStorage<GameStateComponent>& _gameStates;
+    ComponentStorage<PauseStateComponent>& _pauseStates;
 
     Filter _circleShapeEntities;
     Filter _rectangleShapeEntities;
     Filter _playerEntities;
     Filter _gameStateEntities;
+    Filter _guiToggleEvents;
 
     int GetPlayerScore();
     int GetGameOverScore();
     bool IsGameOver();
+    void HandleGuiToggleEvents();
     void HandleWindowEvents();
     void DrawGame();
     void DrawGameOver();
+    void DrawPause();
     void DrawTextCentered(const sf::String& string);
     void ShutdownImGui();
 
@@ -57,6 +63,7 @@ public:
           _rectangleShapes(world.GetStorage<RectangleShapeComponent>()),
           _players(world.GetStorage<PlayerComponent>()),
           _gameStates(world.GetStorage<GameStateComponent>()),
+          _pauseStates(world.GetStorage<PauseStateComponent>()),
           _circleShapeEntities(FilterBuilder(world)
               .With<PositionComponent>()
               .With<CircleShapeComponent>()
@@ -70,6 +77,9 @@ public:
               .Build()),
           _gameStateEntities(FilterBuilder(world)
               .With<GameStateComponent>()
+              .Build()),
+          _guiToggleEvents(FilterBuilder(world)
+              .With<GuiToggleEvent>()
               .Build())
     {
     }

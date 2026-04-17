@@ -12,7 +12,7 @@ void CollisionHandlerSystem::OnUpdate()
 
     for (const auto entity : _collidableEntities)
     {
-        if (!_asteroids.Has(entity)) // Если не астероид, скипаем
+        if (!_asteroids.Has(entity)) // пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             continue;
 
         const auto& collision = _collisions.Get(entity);

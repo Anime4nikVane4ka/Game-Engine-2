@@ -14,6 +14,9 @@ void MovementSystem::OnInit()
 
 void MovementSystem::OnUpdate()
 {
+    if (PauseState::IsPaused(_pauseStates))
+        return;
+
     for (const auto ent : _moveables)
     {
         auto& position = _positionComponents.Get(ent);

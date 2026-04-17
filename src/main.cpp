@@ -13,6 +13,7 @@
 #include "Sample/Systems/InputSystem.h"
 #include "Sample/Systems/MovementSystem.h"
 #include "Sample/Systems/OutOfScreenCleanupSystem.h"
+#include "Sample/Systems/PauseSystem.h"
 #include "Sample/Systems/RenderSystem.h"
 #include "Sample/Systems/RestartSystem.h"
 #include "Sample/Systems/ScoringSystem.h"
@@ -36,6 +37,7 @@ int main() {
     World world;
     SystemsManager systems(world);
     systems.AddSystem(std::make_shared<InputSystem>(world));
+    systems.AddSystem(std::make_shared<PauseSystem>(world));
     systems.AddSystem(std::make_shared<RestartSystem>(world));
     systems.AddSystem(std::make_shared<ShootSystem>(world));
     systems.AddSystem(std::make_shared<AsteroidSpawnSystem>(world,windowWidth));

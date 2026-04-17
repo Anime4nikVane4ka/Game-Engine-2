@@ -19,6 +19,7 @@
 #include "../Components/CollisionComponent.h"
 #include "../Components/GameStateComponent.h"
 #include "../Components/MovementComponent.h"
+#include "../Components/PauseStateComponent.h"
 #include "../Components/PositionComponent.h"
 
 class AsteroidSpawnSystem final : public ISystem
@@ -33,6 +34,7 @@ class AsteroidSpawnSystem final : public ISystem
     ComponentStorage<AsteroidSpawnSettingsComponent>& _spawnSettings;
     ComponentStorage<AsteroidSpawnRequestEvent>& _spawnRequests;
     ComponentStorage<GameStateComponent>& _gameStates;
+    ComponentStorage<PauseStateComponent>& _pauseStates;
 
     Filter _gameStateEntities;
 
@@ -80,6 +82,7 @@ public:
           _spawnSettings(world.GetStorage<AsteroidSpawnSettingsComponent>()),
           _spawnRequests(world.GetStorage<AsteroidSpawnRequestEvent>()),
           _gameStates(world.GetStorage<GameStateComponent>()),
+          _pauseStates(world.GetStorage<PauseStateComponent>()),
           _gameStateEntities(FilterBuilder(world)
               .With<GameStateComponent>()
               .Build()),
