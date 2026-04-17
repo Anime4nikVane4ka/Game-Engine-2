@@ -33,6 +33,16 @@ public:
     bool IsEntityAlive(int e) const override;
     void EntityComponentsChanged(int e, int storageId, bool added) override;
 
+    const std::vector<EntityId>& Entities() const
+    {
+        return _entities;
+    }
+
+    const std::vector<std::shared_ptr<BaseComponentStorage>>& ComponentStorages() const
+    {
+        return _componentStorages;
+    }
+
     template <typename T>
     std::shared_ptr<ComponentStorage<T>> GetRawStorage()
     {

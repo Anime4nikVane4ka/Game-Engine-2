@@ -7,12 +7,17 @@
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Vector2.hpp>
 
+#include "../../Ecs/Filter/Filter.h"
+#include "../../Ecs/Filter/FilterBuilder.h"
 #include "../../Ecs/Systems/ISystem.h"
 
 #include "../Components/AsteroidComponent.h"
+#include "../Components/AsteroidSpawnRequestEvent.h"
+#include "../Components/AsteroidSpawnSettingsComponent.h"
 #include "../Components/CircleColliderComponent.h"
 #include "../Components/CircleShapeComponent.h"
 #include "../Components/CollisionComponent.h"
+#include "../Components/GameStateComponent.h"
 #include "../Components/MovementComponent.h"
 #include "../Components/PositionComponent.h"
 
@@ -25,6 +30,11 @@ class AsteroidSpawnSystem final : public ISystem
     ComponentStorage<CircleShapeComponent>& _circleShapes;
     ComponentStorage<CollisionComponent>& _collisions;
     ComponentStorage<AsteroidComponent>& _asteroids;
+    ComponentStorage<AsteroidSpawnSettingsComponent>& _spawnSettings;
+    ComponentStorage<AsteroidSpawnRequestEvent>& _spawnRequests;
+    ComponentStorage<GameStateComponent>& _gameStates;
+
+    Filter _gameStateEntities;
 
     std::mt19937 _random;
     sf::Clock _clock;
@@ -50,6 +60,12 @@ class AsteroidSpawnSystem final : public ISystem
 
     int _minPointCount;
     int _maxPointCount;
+
+    void CreateSpawnSettings();
+    void UpdateSpawnSettings();
+    void HandleSpawnRequests();
+    void ClearSpawnRequests();
+    bool IsGameOver();
     void SpawnAsteroid();
 
 public:
@@ -61,6 +77,12 @@ public:
           _circleShapes(world.GetStorage<CircleShapeComponent>()),
           _collisions(world.GetStorage<CollisionComponent>()),
           _asteroids(world.GetStorage<AsteroidComponent>()),
+          _spawnSettings(world.GetStorage<AsteroidSpawnSettingsComponent>()),
+          _spawnRequests(world.GetStorage<AsteroidSpawnRequestEvent>()),
+          _gameStates(world.GetStorage<GameStateComponent>()),
+          _gameStateEntities(FilterBuilder(world)
+              .With<GameStateComponent>()
+              .Build()),
           _random(std::random_device{}()),
           _screenWidth(screenWidth)
     {
@@ -71,11 +93,3 @@ public:
 };
 
 #endif //ASTEROIDSPAWNSYSTEM_H
-
-
-
-
-
-
-
-

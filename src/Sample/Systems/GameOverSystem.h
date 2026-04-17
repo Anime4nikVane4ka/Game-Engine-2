@@ -5,6 +5,7 @@
 #include "../../Ecs/Filter/FilterBuilder.h"
 #include "../../Ecs/Systems/ISystem.h"
 
+#include "../Components/AsteroidComponent.h"
 #include "../Components/GameOverEvent.h"
 #include "../Components/GameStateComponent.h"
 
@@ -15,6 +16,7 @@ class GameOverSystem final : public ISystem
 
     Filter _gameOverEventsFilter;
     Filter _gameStatesFilter;
+    Filter _asteroids;
 
 public:
     GameOverSystem(World& world)
@@ -26,6 +28,9 @@ public:
               .Build()),
           _gameStatesFilter(FilterBuilder(world)
               .With<GameStateComponent>()
+              .Build()),
+          _asteroids(FilterBuilder(world)
+              .With<AsteroidComponent>()
               .Build())
     {
     }

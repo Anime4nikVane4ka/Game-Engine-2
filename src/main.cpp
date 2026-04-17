@@ -23,8 +23,8 @@ int main() {
     setlocale(LC_ALL, "");
 
     Config config("config.txt");
-    const int windowWidth = config.getInt("window_width");
-    const int windowHeight = config.getInt("window_height");
+    const int windowWidth = config.getFloat("window_width");
+    const int windowHeight = config.getFloat("window_height");
     std::cout << windowHeight << " " << windowWidth << "\n";
 
     sf::RenderWindow window(sf::VideoMode({
@@ -38,17 +38,14 @@ int main() {
     systems.AddSystem(std::make_shared<InputSystem>(world));
     systems.AddSystem(std::make_shared<RestartSystem>(world));
     systems.AddSystem(std::make_shared<ShootSystem>(world));
-    systems.AddSystem(std::make_shared<AsteroidSpawnSystem>(world, static_cast<float>(windowWidth)));
+    systems.AddSystem(std::make_shared<AsteroidSpawnSystem>(world,windowWidth));
     systems.AddSystem(std::make_shared<MovementSystem>(world));
     systems.AddSystem(std::make_shared<CollisionDetectionSystem>(world));
     systems.AddSystem(std::make_shared<CollisionHandlerSystem>(world));
     systems.AddSystem(std::make_shared<ScoringSystem>(world));
     systems.AddSystem(std::make_shared<GameOverSystem>(world));
     systems.AddSystem(std::make_shared<RenderSystem>(world, window));
-    systems.AddSystem(std::make_shared<OutOfScreenCleanupSystem>(
-        world,
-        static_cast<float>(windowWidth),
-        static_cast<float>(windowHeight)));
+    systems.AddSystem(std::make_shared<OutOfScreenCleanupSystem>(world, windowWidth, windowHeight));
 
     while (window.isOpen()) {
         systems.Update();

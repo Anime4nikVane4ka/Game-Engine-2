@@ -3,8 +3,68 @@
 #include "../../Config.h"
 
 #include <SFML/System/Time.hpp>
+#include <vector>
 
 
+
+void AsteroidSpawnSystem::CreateSpawnSettings()
+{
+    for (const int entity : _spawnSettings.Entities())
+        return;
+
+    const int settingsEntity = world.CreateEntity();
+    _spawnSettings.Add(settingsEntity, AsteroidSpawnSettingsComponent(_minSpawnPeriodMs, _maxSpawnPeriodMs));
+}
+
+void AsteroidSpawnSystem::UpdateSpawnSettings()
+{
+    for (const int entity : _spawnSettings.Entities())
+    {
+        auto& settings = _spawnSettings.Get(entity);
+        if (settings.MinSpawnPeriodMs < 1.0f)
+            settings.MinSpawnPeriodMs = 1.0f;
+        if (settings.MaxSpawnPeriodMs < settings.MinSpawnPeriodMs)
+            settings.MaxSpawnPeriodMs = settings.MinSpawnPeriodMs;
+
+        _minSpawnPeriodMs = settings.MinSpawnPeriodMs;
+        _maxSpawnPeriodMs = settings.MaxSpawnPeriodMs;
+        return;
+    }
+}
+
+void AsteroidSpawnSystem::HandleSpawnRequests()
+{
+    std::vector<int> requestEntities;
+    for (const int entity : _spawnRequests.Entities())
+        requestEntities.push_back(entity);
+
+    for (const int entity : requestEntities)
+    {
+        SpawnAsteroid();
+        world.RemoveEntity(entity);
+    }
+}
+
+void AsteroidSpawnSystem::ClearSpawnRequests()
+{
+    std::vector<int> requestEntities;
+    for (const int entity : _spawnRequests.Entities())
+        requestEntities.push_back(entity);
+
+    for (const int entity : requestEntities)
+        world.RemoveEntity(entity);
+}
+
+bool AsteroidSpawnSystem::IsGameOver()
+{
+    for (const int entity : _gameStateEntities)
+    {
+        if (_gameStates.Get(entity).IsGameOver)
+            return true;
+    }
+
+    return false;
+}
 
 void AsteroidSpawnSystem::SpawnAsteroid()
 {
@@ -12,7 +72,7 @@ void AsteroidSpawnSystem::SpawnAsteroid()
     const float speed = std::uniform_real_distribution<float>(_minSpeed, _maxSpeed)(_random);
     const int pointCount = std::uniform_int_distribution<int>(_minPointCount, _maxPointCount)(_random);
     const float x = std::uniform_real_distribution<float>(radius, _screenWidth - radius)(_random);
-    const float y = -radius; // ���� �������� ��� �� �������
+    const float y = -radius + 1; // Чтобы спавнился за экраном
     const sf::Vector2f direction(
         std::uniform_real_distribution<float>(_minDirectionX, _maxDirectionX)(_random),
         std::uniform_real_distribution<float>(_minDirectionY, _maxDirectionY)(_random));
@@ -32,6 +92,11 @@ void AsteroidSpawnSystem::OnInit()
 
     _minSpawnPeriodMs = config.getFloat("min_spawn_period");
     _maxSpawnPeriodMs = config.getFloat("max_spawn_period");
+    if (_minSpawnPeriodMs < 1.0f)
+        _minSpawnPeriodMs = 1.0f;
+    if (_maxSpawnPeriodMs < _minSpawnPeriodMs)
+        _maxSpawnPeriodMs = _minSpawnPeriodMs;
+
     _minRadius = config.getFloat("min_radius");
     _maxRadius = config.getFloat("max_radius");
     _minSpeed = config.getFloat("min_speed");
@@ -46,10 +111,21 @@ void AsteroidSpawnSystem::OnInit()
     _clock.restart();
     _spawnTimerMs = 0.0f;
     _currentSpawnPeriodMs = std::uniform_real_distribution<float>(_minSpawnPeriodMs, _maxSpawnPeriodMs)(_random);
+    CreateSpawnSettings();
 }
 
 void AsteroidSpawnSystem::OnUpdate()
 {
+    UpdateSpawnSettings();
+
+    if (IsGameOver())
+    {
+        ClearSpawnRequests();
+        return;
+    }
+
+    HandleSpawnRequests();
+
     _spawnTimerMs += static_cast<float>(_clock.restart().asMilliseconds());
     if (_spawnTimerMs < _currentSpawnPeriodMs)
         return;

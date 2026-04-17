@@ -9,6 +9,7 @@ void GameOverSystem::OnInit()
 void GameOverSystem::OnUpdate()
 {
     std::vector<int> eventsToRemove;
+    std::vector<int> asteroidsToRemove;
 
     for (const auto eventEntity : _gameOverEventsFilter)
     {
@@ -35,6 +36,18 @@ void GameOverSystem::OnUpdate()
         }
 
         eventsToRemove.push_back(eventEntity);
+    }
+
+    if (!eventsToRemove.empty())
+    {
+        for (const int asteroid : _asteroids)
+            asteroidsToRemove.push_back(asteroid);
+    }
+
+    for (const int asteroid : asteroidsToRemove)
+    {
+        if (world.IsEntityAlive(asteroid))
+            world.RemoveEntity(asteroid);
     }
 
     for (const int eventEntity : eventsToRemove)

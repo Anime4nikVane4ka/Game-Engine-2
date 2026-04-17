@@ -1,5 +1,7 @@
 #include "RenderSystem.h"
 
+#include "imgui-SFML.h"
+
 #include <optional>
 #include <string>
 
@@ -10,6 +12,7 @@ void RenderSystem::OnInit()
     Config config("config.txt");
     _textSize = config.getInt("text_size");
     _font.openFromFile(config.getString("font_path"));
+    static_cast<void>(ImGui::SFML::Init(_window));
 }
 
 int RenderSystem::GetPlayerScore()
@@ -24,6 +27,8 @@ int RenderSystem::GetGameOverScore()
 {
     for (const int gameStateEntity : _gameStateEntities)
         return _gameStates.Get(gameStateEntity).Score;
+
+    return GetPlayerScore();
 }
 
 bool RenderSystem::IsGameOver()
@@ -41,6 +46,8 @@ void RenderSystem::HandleWindowEvents()
 {
     while (const std::optional event = _window.pollEvent())
     {
+        ImGui::SFML::ProcessEvent(_window, *event);
+
         if (event->is<sf::Event::Closed>())
         {
             _window.close();
@@ -104,6 +111,7 @@ void RenderSystem::DrawGameOver()
 void RenderSystem::OnUpdate()
 {
     HandleWindowEvents();
+    ImGui::SFML::Update(_window, _imguiClock.restart());
 
     _window.clear(sf::Color::Black);
 
@@ -112,5 +120,7 @@ void RenderSystem::OnUpdate()
     else
         DrawGame();
 
+    _gui.Draw(world);
+    ImGui::SFML::Render(_window);
     _window.display();
 }

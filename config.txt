@@ -21,6 +21,6 @@ min_point_count=7
 max_point_count=14
 
 
-font_path=fonts/futura.ttf
+font_path=../fonts/futura.ttf
 text_size=24
 text_text=IVAN PISAREV IU3-22B

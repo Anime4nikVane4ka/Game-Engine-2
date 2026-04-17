@@ -4,6 +4,7 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/System/Clock.hpp>
 #include <SFML/System/String.hpp>
 #include <SFML/Window/Event.hpp>
 
@@ -16,11 +17,14 @@
 #include "../Components/PlayerComponent.h"
 #include "../Components/PositionComponent.h"
 #include "../Components/RectangleShapeComponent.h"
+#include "../../gui.h"
 
 class RenderSystem final : public ISystem
 {
     sf::RenderWindow& _window;
     sf::Font _font;
+    sf::Clock _imguiClock;
+    GUI _gui;
     unsigned int _textSize = 24;
 
     ComponentStorage<PositionComponent>& _positions;

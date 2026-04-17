@@ -1,8 +1,6 @@
 #ifndef OUTOFSCREENCLEANUPSYSTEM_H
 #define OUTOFSCREENCLEANUPSYSTEM_H
 
-#include <vector>
-
 #include "../../Ecs/Filter/Filter.h"
 #include "../../Ecs/Filter/FilterBuilder.h"
 #include "../../Ecs/Systems/ISystem.h"
@@ -26,7 +24,6 @@ class OutOfScreenCleanupSystem final : public ISystem
     float _screenHeight;
 
     bool IsOutsideScreen(int entity) const;
-    void AddEntityToRemove(std::vector<int>& entitiesToRemove, int entity) const;
 
 public:
     OutOfScreenCleanupSystem(World& world, const float screenWidth, const float screenHeight)

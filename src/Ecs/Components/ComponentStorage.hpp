@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <stdexcept>
+#include <typeinfo>
 #include <utility>
 #include <vector>
 
@@ -110,6 +111,11 @@ public:
     int Id() const override 
     { 
        return _id; 
+    }
+
+    const char* TypeName() const override
+    {
+        return typeid(T).name();
     }
 };
 

@@ -1,6 +1,5 @@
 #include "RestartSystem.h"
 
-#include <algorithm>
 
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/System/Vector2.hpp>
@@ -17,12 +16,6 @@ void RestartSystem::OnInit()
 
     CreateGameState();
     CreatePlayer();
-}
-
-void RestartSystem::AddEntityToRemove(std::vector<int>& entitiesToRemove, const int entity) const
-{
-    if (std::find(entitiesToRemove.begin(), entitiesToRemove.end(), entity) == entitiesToRemove.end())
-        entitiesToRemove.push_back(entity);
 }
 
 void RestartSystem::ResetGameState()
@@ -67,17 +60,17 @@ void RestartSystem::OnUpdate()
     std::vector<int> entitiesToRemove;
 
     for (const int entity : restartEvents)
-        AddEntityToRemove(entitiesToRemove, entity);
+        entitiesToRemove.push_back(entity);
     for (const int entity : _asteroids)
-        AddEntityToRemove(entitiesToRemove, entity);
+        entitiesToRemove.push_back(entity);
     for (const int entity : _bullets)
-        AddEntityToRemove(entitiesToRemove, entity);
+        entitiesToRemove.push_back(entity);
     for (const int entity : _playersFilter)
-        AddEntityToRemove(entitiesToRemove, entity);
+        entitiesToRemove.push_back(entity);
     for (const int entity : _scoreIncreaseEvents)
-        AddEntityToRemove(entitiesToRemove, entity);
+        entitiesToRemove.push_back(entity);
     for (const int entity : _gameOverEvents)
-        AddEntityToRemove(entitiesToRemove, entity);
+        entitiesToRemove.push_back(entity);
 
     for (const int entity : entitiesToRemove)
     {

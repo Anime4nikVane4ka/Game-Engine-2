@@ -1,18 +1,10 @@
 #include "CollisionHandlerSystem.h"
 
-#include <algorithm>
 #include <vector>
 
 void CollisionHandlerSystem::OnInit()
 {
 }
-
-void CollisionHandlerSystem::AddEntityToRemove(std::vector<int>& entitiesToRemove, const int entity)
-{
-    if (std::find(entitiesToRemove.begin(), entitiesToRemove.end(), entity) == entitiesToRemove.end())
-        entitiesToRemove.push_back(entity);
-}
-
 
 void CollisionHandlerSystem::OnUpdate()
 {
@@ -32,8 +24,8 @@ void CollisionHandlerSystem::OnUpdate()
                 const int eventEntity = world.CreateEntity();
                 _scoreIncreaseEvents.Add(eventEntity, ScoreIncreaseEvent(playerEntity, _scorePerAsteroid));
 
-                AddEntityToRemove(entitiesToRemove, entity);
-                AddEntityToRemove(entitiesToRemove, collidedEntity);
+                entitiesToRemove.push_back(entity);
+                entitiesToRemove.push_back(collidedEntity);
                 break;
             }
             else if (_players.Has(collidedEntity))
@@ -42,8 +34,8 @@ void CollisionHandlerSystem::OnUpdate()
                 const int eventEntity = world.CreateEntity();
                 _gameOverEvents.Add(eventEntity, GameOverEvent(collidedEntity, score));
 
-                AddEntityToRemove(entitiesToRemove, entity);
-                AddEntityToRemove(entitiesToRemove, collidedEntity);
+                entitiesToRemove.push_back(entity);
+                entitiesToRemove.push_back(collidedEntity);
                 break;
             }
         }
@@ -55,6 +47,4 @@ void CollisionHandlerSystem::OnUpdate()
             world.RemoveEntity(entity);
     }
 }
-
-
 

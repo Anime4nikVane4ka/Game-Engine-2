@@ -1,6 +1,5 @@
 #include "OutOfScreenCleanupSystem.h"
 
-#include <algorithm>
 #include <vector>
 
 void OutOfScreenCleanupSystem::OnInit()
@@ -33,12 +32,6 @@ bool OutOfScreenCleanupSystem::IsOutsideScreen(const int entity) const
         || position.y - halfHeight > _screenHeight;
 }
 
-void OutOfScreenCleanupSystem::AddEntityToRemove(std::vector<int>& entitiesToRemove, const int entity) const
-{
-    if (std::find(entitiesToRemove.begin(), entitiesToRemove.end(), entity) == entitiesToRemove.end())
-        entitiesToRemove.push_back(entity);
-}
-
 void OutOfScreenCleanupSystem::OnUpdate()
 {
     std::vector<int> entitiesToRemove;
@@ -46,13 +39,13 @@ void OutOfScreenCleanupSystem::OnUpdate()
     for (const int entity : _asteroidEntities)
     {
         if (IsOutsideScreen(entity))
-            AddEntityToRemove(entitiesToRemove, entity);
+            entitiesToRemove.push_back(entity);
     }
 
     for (const int entity : _bulletEntities)
     {
         if (IsOutsideScreen(entity))
-            AddEntityToRemove(entitiesToRemove, entity);
+            entitiesToRemove.push_back(entity);
     }
 
     for (const int entity : entitiesToRemove)

@@ -45,7 +45,6 @@ class RestartSystem final : public ISystem
     float _windowWidth;
     float _windowHeight;
 
-    void AddEntityToRemove(std::vector<int>& entitiesToRemove, int entity) const;
     void CreateGameState();
     void CreatePlayer();
     void ResetGameState();

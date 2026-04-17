@@ -2,6 +2,8 @@ set(TARGET_NAME main)
 set(SOURCES main.cpp
         Config.cpp
         Config.h
+        gui.cpp
+        gui.h
         Sample/Systems/MovementSystem.cpp
         Sample/Systems/MovementSystem.h
         Sample/Systems/OutOfScreenCleanupSystem.cpp
@@ -11,6 +13,8 @@ set(SOURCES main.cpp
         Sample/Components/PositionComponent.h
         Sample/Components/MovementComponent.h
         Sample/Components/AsteroidComponent.h
+        Sample/Components/AsteroidSpawnRequestEvent.h
+        Sample/Components/AsteroidSpawnSettingsComponent.h
         Sample/Components/BoxColliderComponent.h
         Sample/Components/BulletComponent.h
         Sample/Components/CircleColliderComponent.h

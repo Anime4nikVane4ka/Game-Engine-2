@@ -1,8 +1,6 @@
 #ifndef COLLISIONHANDLERSYSTEM_H
 #define COLLISIONHANDLERSYSTEM_H
 
-#include <vector>
-
 #include "../../Ecs/Filter/Filter.h"
 #include "../../Ecs/Filter/FilterBuilder.h"
 #include "../../Ecs/Systems/ISystem.h"
@@ -25,8 +23,6 @@ class CollisionHandlerSystem final : public ISystem
 
     Filter _collidableEntities;
     int _scorePerAsteroid = 1;
-
-    void AddEntityToRemove(std::vector<int>& entitiesToRemove, int entity);
 
 public:
     CollisionHandlerSystem(World& world)
