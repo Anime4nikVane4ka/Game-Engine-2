@@ -2,7 +2,7 @@ window_width=1280
 window_height=720
 
 player_speed=5.0
-shoot_cooldown=0.5
+shoot_cooldown=2000
 bullet_speed=2.0
 
 min_spawn_period=1000

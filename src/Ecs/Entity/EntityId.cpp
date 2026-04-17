@@ -12,14 +12,17 @@ void EntityId::AddComponent(const int component)
 
 int EntityId::RemoveComponent(const int component)
 {
-    // ToDo: FastRemove компонента из указанного списка
     for (int i = 0; i < _components.size(); i++)
     {
-        if (_components[i] == component && i < _components.size() - 1)
-            _components[i] = _components[_components.size() - 1];
+        if (_components[i] != component)
+            continue;
+
+        _components[i] = _components[_components.size() - 1];
+        _components.pop_back();
+        return _components.size();
     }
-    _components.pop_back();
-    return _components.size() - 1;
+
+    return _components.size();
 }
 
 bool EntityId::IsRemoved() const
@@ -72,3 +75,4 @@ std::ostream& operator<<(std::ostream &os, const EntityId &eId)
     os << "EntityId(Id: " << eId.Id << ", Gen: " << eId.Gen() << ")";
     return os;
 }
+

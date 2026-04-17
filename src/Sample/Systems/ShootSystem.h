@@ -1,6 +1,8 @@
 #ifndef SHOOTSYSTEM_H
 #define SHOOTSYSTEM_H
 
+#include <SFML/System/Clock.hpp>
+
 #include "../../Ecs/Filter/Filter.h"
 #include "../../Ecs/Filter/FilterBuilder.h"
 #include "../../Ecs/Systems/ISystem.h"
@@ -28,6 +30,7 @@ class ShootSystem final : public ISystem
     ComponentStorage<RectangleShapeComponent>& _rectangleShapes;
 
     Filter _shootEvents;
+    sf::Clock _clock;
     float _bulletSpeed;
 
 public:
@@ -52,4 +55,5 @@ public:
 };
 
 #endif //SHOOTSYSTEM_H
+
 

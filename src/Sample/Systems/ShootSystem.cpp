@@ -2,14 +2,22 @@
 
 #include "../../Config.h"
 
+#include <SFML/System/Time.hpp>
+
 void ShootSystem::OnInit()
 {
-    Config config("../config.txt");
+    Config config("config.txt");
     _bulletSpeed = config.getFloat("bullet_speed");
+
+    _clock.restart();
 }
 
 void ShootSystem::OnUpdate()
 {
+    const float deltaTimeMs = static_cast<float>(_clock.restart().asMilliseconds());
+    for (const int shooterEntity : _shooterComponents.Entities())
+        _shooterComponents.Get(shooterEntity).Update(deltaTimeMs);
+
     for (const auto eventEntity : _shootEvents)
     {
         auto& shootEvent = _shootInputEvents.Get(eventEntity);
@@ -41,4 +49,3 @@ void ShootSystem::OnUpdate()
         world.RemoveEntity(eventEntity);
     }
 }
-

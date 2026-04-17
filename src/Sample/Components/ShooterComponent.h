@@ -3,25 +3,25 @@
 
 struct ShooterComponent
 {
-    float Cooldown = 0.5f;
-    float TimeToShoot = 0.0f;
+    float CooldownMs = 500.0f;
+    float TimeToShootMs = 0.0f;
     bool CanShoot = true;
 
     ShooterComponent() = default;
-    ShooterComponent(const float cooldown) : Cooldown(cooldown) {}
+    ShooterComponent(const float cooldownMs) : CooldownMs(cooldownMs) {}
     void Shot()
     {
         CanShoot = false;
-        TimeToShoot = Cooldown;
+        TimeToShootMs = CooldownMs;
     }
-    void Update(const float deltaTime)
+    void Update(const float deltaTimeMs)
     {
         if (CanShoot)
             return;
-        TimeToShoot -= deltaTime;
-        if (TimeToShoot <= 0.0f)
+        TimeToShootMs -= deltaTimeMs;
+        if (TimeToShootMs <= 0.0f)
         {
-            TimeToShoot = 0.0f;
+            TimeToShootMs = 0.0f;
             CanShoot = true;
         }
     }

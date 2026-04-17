@@ -52,3 +52,8 @@ target_compile_features(${TARGET_NAME} PRIVATE cxx_std_20)
 
 target_link_libraries(${TARGET_NAME} PUBLIC ${ECS_LIB_NAME})
 target_link_libraries(${TARGET_NAME} PUBLIC ImGui-SFML::ImGui-SFML)
+
+add_custom_command(TARGET ${TARGET_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        ${CMAKE_SOURCE_DIR}/config.txt
+        $<TARGET_FILE_DIR:${TARGET_NAME}>/config.txt)

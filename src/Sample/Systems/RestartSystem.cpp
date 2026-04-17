@@ -9,7 +9,7 @@
 
 void RestartSystem::OnInit()
 {
-    Config config("../config.txt");
+    Config config("config.txt");
     _playerSpeed = config.getFloat("player_speed");
     _shootCooldown = config.getFloat("shoot_cooldown");
     _windowWidth = static_cast<float>(config.getInt("window_width"));
@@ -88,3 +88,4 @@ void RestartSystem::OnUpdate()
     ResetGameState();
     CreatePlayer();
 }
+

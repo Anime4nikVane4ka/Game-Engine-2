@@ -1,5 +1,8 @@
 #include "Config.h"
 
+#include <algorithm>
+#include <charconv>
+
 Config::Config(const std::string& path)
 {
     LoadFromFile(path);
@@ -8,11 +11,24 @@ Config::Config(const std::string& path)
 void Config::LoadFromFile(const std::string& path)
 {
     _data.clear();
+
     std::ifstream file(path);
     if (!file.is_open())
     {
-        std::cout << "Could not open config file: " << path << "\n";
+        file.clear();
+        file.open("../" + path);
     }
+    if (!file.is_open())
+    {
+        file.clear();
+        file.open("../../" + path);
+    }
+    if (!file.is_open())
+    {
+        std::cout << "Could not open config file: " << path << "\n";
+        return;
+    }
+
     std::string line;
     while (std::getline(file, line))
     {
@@ -42,7 +58,12 @@ int Config::getInt(const std::string& key) const
 
 float Config::getFloat(const std::string& key) const
 {
-    return std::stof(_data.at(key));
+    std::string value = _data.at(key);
+    std::replace(value.begin(), value.end(), ',', '.');
+
+    float result = 0.0f;
+    std::from_chars(value.data(), value.data() + value.size(), result);
+    return result;
 }
 
 bool Config::getBool(const std::string& key) const
@@ -54,6 +75,8 @@ bool Config::getBool(const std::string& key) const
 
     if (flag == "false" || flag == "0")
         return false;
+
+    return false;
 }
 
 #include <sstream>
@@ -77,4 +100,6 @@ float Config::getFloatArrayValue(const std::string& key, int index) const
         start = commaPos + 1;
         ++currentIndex;
     }
+
+    return 0.0f;
 }

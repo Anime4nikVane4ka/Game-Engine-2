@@ -11,7 +11,10 @@ void World::EntityComponentsChanged(const int e, const int storageId, const bool
     {
         const int newComponentsCount = entity.RemoveComponent(storageId);
         if (newComponentsCount == 0)
-            RemoveEntity(e);
+        {
+            entity.Remove();
+            _freeEntities.push_back(entity.Id);
+        }
     }
 }
 
@@ -46,12 +49,13 @@ void World::RemoveEntity(int ent)
     auto &entity = _entities[ent];
     if (entity.IsRemoved())
         return;
-    const auto &components = entity.Components();
+    const auto components = entity.Components();
     if (!components.empty())
     {
-        for (int i = components.size() - 1; i >= 0; i--)
+        for (int i = static_cast<int>(components.size()) - 1; i >= 0; i--)
             _componentStorages[components[i]]->Remove(ent);
-    } else
+    }
+    else
     {
         entity.Remove();
         _freeEntities.push_back(entity.Id);
