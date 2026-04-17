@@ -14,6 +14,7 @@ SystemsManager& SystemsManager::AddInitializer(std::shared_ptr<IInitializer> ini
 SystemsManager& SystemsManager::AddSystem(std::shared_ptr<ISystem> system)
 {
     // ToDo: Логика добавления системы в менеджер
+    _newInitializers.push_back(system);
     _systems.push_back(system);
     return *this;
 }

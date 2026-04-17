@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <stdexcept>
+#include <utility>
 #include <vector>
 
 #include "BaseComponentStorage.h"
@@ -29,12 +30,10 @@ class ComponentStorage final : public BaseComponentStorage {
             _sparse.resize(sparseSize);
             std::fill_n(_sparse.data() + oldSparseSize, sparseSize - oldSparseSize, -1);
         }
-        int oldDataSize = _dense.size();
-        if (oldDataSize < dataSize)
+        if (_dense.capacity() < dataSize)
         {
-            _dense.resize(dataSize);
-            _data.resize(dataSize);
-            std::fill_n(_dense.data() + oldDataSize, dataSize - oldDataSize, -1);
+            _dense.reserve(dataSize);
+            _data.reserve(dataSize);
         }
     }
 
@@ -59,8 +58,8 @@ public:
         // ToDo: Проверка необходимости ресайза
         Resize((entityIid / 64 + 1) * 64, _count >= _data.size() ? _data.size() + 64 : _data.size());
         // ToDo: Добавление компонента на сущность
-        _data[_count] = value;
-        _dense[_count] = entityIid;
+        _data.push_back(value);
+        _dense.push_back(entityIid);
         _sparse[entityIid] = _count;
         _count++;
         // ToDo: Уведомление мира об изменении набора компонентов на сущности
@@ -76,12 +75,18 @@ public:
 #endif
         // ToDo: FastRemove компонента с сущности
         int arrayIndex = _sparse[entityIid];
-        int lastEntityIid = _dense[--_count];
-        _data[arrayIndex] = _data[_count];
+        int lastIndex = _count - 1;
+        int lastEntityIid = _dense[lastIndex];
+
+        _data[arrayIndex] = std::move(_data[lastIndex]);
         _dense[arrayIndex] = lastEntityIid;
         _sparse[lastEntityIid] = arrayIndex;
-        _sparse[entityIid] = -1;  
-        // ToDo: Уведомление мира об изменении набора компонентов на сущности
+        _sparse[entityIid] = -1;
+
+        _data.pop_back();
+        _dense.pop_back();
+        _count--;
+// ToDo: Уведомление мира об изменении набора компонентов на сущности
         _world.EntityComponentsChanged(entityIid, _id, false);
     }
 
@@ -109,4 +114,3 @@ public:
 };
 
 #endif //COMPONENTSTORAGE_H
-

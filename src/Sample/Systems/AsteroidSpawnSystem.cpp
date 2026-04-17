@@ -2,6 +2,8 @@
 
 #include "../../Config.h"
 
+#include <SFML/System/Time.hpp>
+
 
 
 void AsteroidSpawnSystem::SpawnAsteroid()
@@ -56,11 +58,3 @@ void AsteroidSpawnSystem::OnUpdate()
     _currentSpawnPeriodMs = std::uniform_real_distribution<float>(_minSpawnPeriodMs, _maxSpawnPeriodMs)(_random);
     SpawnAsteroid();
 }
-
-
-
-
-
-
-
-

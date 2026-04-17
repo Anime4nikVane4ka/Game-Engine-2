@@ -33,25 +33,16 @@ int main() {
 
     World world;
     SystemsManager systems(world);
-    const auto restartSystem = std::make_shared<RestartSystem>(world);
-    const auto shootSystem = std::make_shared<ShootSystem>(world);
-    const auto asteroidSpawnSystem = std::make_shared<AsteroidSpawnSystem>(world, static_cast<float>(windowWidth));
-    const auto renderSystem = std::make_shared<RenderSystem>(world, window);
-
     systems.AddSystem(std::make_shared<InputSystem>(world));
-    systems.AddInitializer(restartSystem);
-    systems.AddInitializer(shootSystem);
-    systems.AddInitializer(asteroidSpawnSystem);
-    systems.AddInitializer(renderSystem);
-    systems.AddSystem(restartSystem);
-    systems.AddSystem(shootSystem);
-    systems.AddSystem(asteroidSpawnSystem);
+    systems.AddSystem(std::make_shared<RestartSystem>(world));
+    systems.AddSystem(std::make_shared<ShootSystem>(world));
+    systems.AddSystem(std::make_shared<AsteroidSpawnSystem>(world, static_cast<float>(windowWidth)));
     systems.AddSystem(std::make_shared<MovementSystem>(world));
     systems.AddSystem(std::make_shared<CollisionDetectionSystem>(world));
     systems.AddSystem(std::make_shared<CollisionHandlerSystem>(world));
     systems.AddSystem(std::make_shared<ScoringSystem>(world));
     systems.AddSystem(std::make_shared<GameOverSystem>(world));
-    systems.AddSystem(renderSystem);
+    systems.AddSystem(std::make_shared<RenderSystem>(world, window));
 
     while (window.isOpen()) {
         systems.Update();
