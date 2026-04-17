@@ -28,7 +28,7 @@ void AsteroidSpawnSystem::SpawnAsteroid()
 
 void AsteroidSpawnSystem::OnInit()
 {
-    Config config("config.txt");
+    Config config("../config.txt");
 
     _minSpawnPeriodMs = config.getFloat("min_spawn_period");
     _maxSpawnPeriodMs = config.getFloat("max_spawn_period");

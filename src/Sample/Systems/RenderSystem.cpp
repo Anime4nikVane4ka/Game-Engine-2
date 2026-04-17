@@ -7,7 +7,7 @@
 
 void RenderSystem::OnInit()
 {
-    Config config("config.txt");
+    Config config("../config.txt");
     _textSize = config.getInt("text_size");
     _font.openFromFile(config.getString("font_path"));
 }

@@ -4,7 +4,7 @@
 
 void ShootSystem::OnInit()
 {
-    Config config("config.txt");
+    Config config("../config.txt");
     _bulletSpeed = config.getFloat("bullet_speed");
 }
 
