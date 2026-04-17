@@ -1,9 +1,9 @@
 set(TARGET_NAME main)
 set(SOURCES main.cpp
-        Config.cpp
-        Config.h
-        gui.cpp
-        gui.h
+        Config/Config.cpp
+        Config/Config.h
+        GUI/GUI.cpp
+        GUI/GUI.h
         Sample/Systems/MovementSystem.cpp
         Sample/Systems/MovementSystem.h
         Sample/Systems/OutOfScreenCleanupSystem.cpp

@@ -1,6 +1,6 @@
 #include "AsteroidSpawnSystem.h"
 
-#include "../../Config.h"
+#include "../../Config/Config.h"
 
 #include <SFML/System/Time.hpp>
 #include <vector>

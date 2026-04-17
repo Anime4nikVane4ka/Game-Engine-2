@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-#include "../../Config.h"
+#include "../../Config/Config.h"
 
 void MovementSystem::Print(int ent)
 {

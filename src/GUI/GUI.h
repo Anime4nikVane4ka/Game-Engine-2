@@ -1,7 +1,7 @@
 ﻿#ifndef GUI_H
 #define GUI_H
 
-#include "Ecs/World/World.h"
+#include "../Ecs/World/World.h"
 
 class GUI
 {
@@ -15,6 +15,7 @@ private:
     bool _collapsed = false;
 
     void DrawAsteroidSpawnControls(World& world);
+    void DrawUfoSpawnControls(World& world);
     void DrawEntities(World& world);
 };
 

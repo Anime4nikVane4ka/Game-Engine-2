@@ -4,7 +4,7 @@
 #include "Ecs/Systems/SystemsManager.h"
 #include "Ecs/World/World.h"
 
-#include "Config.h"
+#include "Config/Config.h"
 
 #include "Sample/Systems/AsteroidSpawnSystem.h"
 #include "Sample/Systems/CollisionDetectionSystem.h"

@@ -4,7 +4,7 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/System/Vector2.hpp>
 
-#include "../../Config.h"
+#include "../../Config/Config.h"
 
 void RestartSystem::OnInit()
 {

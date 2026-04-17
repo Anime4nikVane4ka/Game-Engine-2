@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "../../Config.h"
+#include "../../Config/Config.h"
 
 void RenderSystem::OnInit()
 {

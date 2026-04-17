@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "../../Config.h"
+#include "../../Config/Config.h"
 
 void OutOfScreenCleanupSystem::OnInit()
 {

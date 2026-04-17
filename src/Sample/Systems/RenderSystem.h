@@ -19,7 +19,7 @@
 #include "../Components/PlayerComponent.h"
 #include "../Components/PositionComponent.h"
 #include "../Components/RectangleShapeComponent.h"
-#include "../../gui.h"
+#include "../../GUI/GUI.h"
 
 class RenderSystem final : public ISystem
 {
