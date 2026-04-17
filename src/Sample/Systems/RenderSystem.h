@@ -25,6 +25,7 @@ class RenderSystem final : public ISystem
     sf::Font _font;
     sf::Clock _imguiClock;
     GUI _gui;
+    bool _imguiInitialized = false;
     unsigned int _textSize = 24;
 
     ComponentStorage<PositionComponent>& _positions;
@@ -45,6 +46,7 @@ class RenderSystem final : public ISystem
     void DrawGame();
     void DrawGameOver();
     void DrawTextCentered(const sf::String& string);
+    void ShutdownImGui();
 
 public:
     RenderSystem(World& world, sf::RenderWindow& window)
@@ -71,6 +73,8 @@ public:
               .Build())
     {
     }
+
+    ~RenderSystem() override;
 
     void OnInit() override;
     void OnUpdate() override;

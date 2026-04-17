@@ -8,14 +8,21 @@
 #include "Sample/Components/AsteroidSpawnSettingsComponent.h"
 #include "Sample/Components/PositionComponent.h"
 
+void GUI::ToggleCollapsed()
+{
+    _collapsed = !_collapsed;
+}
+
 void GUI::Draw(World& world)
 {
+    ImGui::SetNextWindowCollapsed(_collapsed, ImGuiCond_Always);
     ImGui::Begin("Game UI");
 
     DrawAsteroidSpawnControls(world);
     ImGui::Separator();
     DrawEntities(world);
 
+    _collapsed = ImGui::IsWindowCollapsed();
     ImGui::End();
 }
 

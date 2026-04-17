@@ -5,6 +5,8 @@
 #include <optional>
 #include <string>
 
+#include <SFML/Window/Keyboard.hpp>
+
 #include "../../Config.h"
 
 void RenderSystem::OnInit()
@@ -12,7 +14,21 @@ void RenderSystem::OnInit()
     Config config("config.txt");
     _textSize = config.getInt("text_size");
     _font.openFromFile(config.getString("font_path"));
-    static_cast<void>(ImGui::SFML::Init(_window));
+    _imguiInitialized = ImGui::SFML::Init(_window);
+}
+
+RenderSystem::~RenderSystem()
+{
+    ShutdownImGui();
+}
+
+void RenderSystem::ShutdownImGui()
+{
+    if (!_imguiInitialized)
+        return;
+
+    ImGui::SFML::Shutdown();
+    _imguiInitialized = false;
 }
 
 int RenderSystem::GetPlayerScore()
@@ -50,7 +66,14 @@ void RenderSystem::HandleWindowEvents()
 
         if (event->is<sf::Event::Closed>())
         {
+            ShutdownImGui();
             _window.close();
+        }
+
+        const auto* keyPressed = event->getIf<sf::Event::KeyPressed>();
+        if (keyPressed != nullptr && keyPressed->code == sf::Keyboard::Key::G)
+        {
+            _gui.ToggleCollapsed();
         }
     }
 }
@@ -111,6 +134,10 @@ void RenderSystem::DrawGameOver()
 void RenderSystem::OnUpdate()
 {
     HandleWindowEvents();
+
+    if (!_window.isOpen())
+        return;
+
     ImGui::SFML::Update(_window, _imguiClock.restart());
 
     _window.clear(sf::Color::Black);

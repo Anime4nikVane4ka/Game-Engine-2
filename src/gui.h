@@ -8,9 +8,12 @@ class GUI
 public:
     GUI() = default;
 
+    void ToggleCollapsed();
     void Draw(World& world);
 
 private:
+    bool _collapsed = false;
+
     void DrawAsteroidSpawnControls(World& world);
     void DrawEntities(World& world);
 };
