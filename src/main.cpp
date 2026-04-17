@@ -33,7 +33,7 @@ int main() {
     sf::RenderWindow window(sf::VideoMode({
         static_cast<unsigned int>(windowWidth),
         static_cast<unsigned int>(windowHeight)
-    }), "Test");
+    }), "COOL SPACE SHOOTER");
     window.setFramerateLimit(60);
 
     World world;
