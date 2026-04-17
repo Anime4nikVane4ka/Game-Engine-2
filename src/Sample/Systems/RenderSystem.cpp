@@ -24,8 +24,6 @@ int RenderSystem::GetGameOverScore()
 {
     for (const int gameStateEntity : _gameStateEntities)
         return _gameStates.Get(gameStateEntity).Score;
-
-    return GetPlayerScore();
 }
 
 bool RenderSystem::IsGameOver()

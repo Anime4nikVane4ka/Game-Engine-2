@@ -12,8 +12,8 @@ void RestartSystem::OnInit()
     Config config("config.txt");
     _playerSpeed = config.getFloat("player_speed");
     _shootCooldown = config.getFloat("shoot_cooldown");
-    _windowWidth = static_cast<float>(config.getInt("window_width"));
-    _windowHeight = static_cast<float>(config.getInt("window_height"));
+    _windowWidth = config.getFloat("window_width");
+    _windowHeight = config.getFloat("window_height");
 
     CreateGameState();
     CreatePlayer();
