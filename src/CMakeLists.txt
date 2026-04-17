@@ -1,5 +1,7 @@
 set(TARGET_NAME main)
 set(SOURCES main.cpp
+        Config.cpp
+        Config.h
         Sample/Systems/MovementSystem.cpp
         Sample/Systems/MovementSystem.h
         Sample/Systems/InitSystem.cpp
@@ -17,6 +19,8 @@ set(SOURCES main.cpp
         Sample/Components/ShooterComponent.h
         Sample/Systems/InputSystem.cpp
         Sample/Systems/InputSystem.h
+        Sample/Systems/AsteroidSpawnSystem.cpp
+        Sample/Systems/AsteroidSpawnSystem.h
         Sample/Systems/ShootSystem.cpp
         Sample/Systems/ShootSystem.h
         Sample/Components/ShootInputEvent.h

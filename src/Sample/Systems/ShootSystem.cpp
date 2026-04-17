@@ -1,7 +1,11 @@
 #include "ShootSystem.h"
 
+#include "../../Config.h"
+
 void ShootSystem::OnInit()
 {
+    Config config("config.txt");
+    _bulletSpeed = config.getFloat("bullet_speed");
 }
 
 void ShootSystem::OnUpdate()
@@ -24,7 +28,7 @@ void ShootSystem::OnUpdate()
                 _positions.Add(bulletEntity, PositionComponent(
                     shooterPosition.Position.x,
                     shooterPosition.Position.y));
-                _movements.Add(bulletEntity, MovementComponent(8.0f, 0.0f, -1.0f));
+                _movements.Add(bulletEntity, MovementComponent(_bulletSpeed, 0.0f, -1.0f));
                 _boxColliders.Add(bulletEntity, BoxColliderComponent(6.0f, 16.0f));
                 _rectangleShapes.Add(bulletEntity, RectangleShapeComponent(6.0f, 16.0f, sf::Color::Yellow));
                 _collisions.Add(bulletEntity, CollisionComponent());
@@ -37,3 +41,4 @@ void ShootSystem::OnUpdate()
         world.RemoveEntity(eventEntity);
     }
 }
+

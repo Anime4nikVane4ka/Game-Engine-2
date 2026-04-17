@@ -28,6 +28,7 @@ class ShootSystem final : public ISystem
     ComponentStorage<RectangleShapeComponent>& _rectangleShapes;
 
     Filter _shootEvents;
+    float _bulletSpeed;
 
 public:
     ShootSystem(World& world)
@@ -51,3 +52,4 @@ public:
 };
 
 #endif //SHOOTSYSTEM_H
+
