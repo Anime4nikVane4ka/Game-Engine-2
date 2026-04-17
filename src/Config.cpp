@@ -1,7 +1,6 @@
 #include "Config.h"
 
 #include <algorithm>
-#include <charconv>
 
 Config::Config(const std::string& path)
 {
@@ -61,9 +60,7 @@ float Config::getFloat(const std::string& key) const
     std::string value = _data.at(key);
     std::replace(value.begin(), value.end(), ',', '.');
 
-    float result = 0.0f;
-    std::from_chars(value.data(), value.data() + value.size(), result);
-    return result;
+    return std::stof(value);
 }
 
 bool Config::getBool(const std::string& key) const

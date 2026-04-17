@@ -12,7 +12,7 @@ void AsteroidSpawnSystem::SpawnAsteroid()
     const float speed = std::uniform_real_distribution<float>(_minSpeed, _maxSpeed)(_random);
     const int pointCount = std::uniform_int_distribution<int>(_minPointCount, _maxPointCount)(_random);
     const float x = std::uniform_real_distribution<float>(radius, _screenWidth - radius)(_random);
-    const float y = -radius; // Чтоб астероид был за экраном
+    const float y = -radius; // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     const sf::Vector2f direction(
         std::uniform_real_distribution<float>(_minDirectionX, _maxDirectionX)(_random),
         std::uniform_real_distribution<float>(_minDirectionY, _maxDirectionY)(_random));
@@ -28,7 +28,7 @@ void AsteroidSpawnSystem::SpawnAsteroid()
 
 void AsteroidSpawnSystem::OnInit()
 {
-    Config config("../config.txt");
+    Config config("config.txt");
 
     _minSpawnPeriodMs = config.getFloat("min_spawn_period");
     _maxSpawnPeriodMs = config.getFloat("max_spawn_period");

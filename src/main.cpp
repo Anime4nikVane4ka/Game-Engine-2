@@ -21,7 +21,7 @@ int main() {
     // Пример использования
     setlocale(LC_ALL, "");
 
-    Config config("../config.txt");
+    Config config("config.txt");
     const int windowWidth = config.getInt("window_width");
     const int windowHeight = config.getInt("window_height");
     std::cout << windowHeight << " " << windowWidth << "\n";
