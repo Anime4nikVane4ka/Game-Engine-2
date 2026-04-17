@@ -2,15 +2,15 @@ window_width=1280
 window_height=720
 
 player_speed=5.0
-shoot_cooldown=2000
-bullet_speed=2.0
+shoot_cooldown=1000
+bullet_speed=10.0
 
 min_spawn_period=1000
-max_spawn_period=2500
-min_radius=16.0
+max_spawn_period=2000
+min_radius=20.0
 max_radius=48.0
-min_speed=1.0
-max_speed=4.0
+min_speed=2.0
+max_speed=3.5
 
 min_directionX=-0.5
 max_directionX=0.5

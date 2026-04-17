@@ -4,6 +4,8 @@ set(SOURCES main.cpp
         Config.h
         Sample/Systems/MovementSystem.cpp
         Sample/Systems/MovementSystem.h
+        Sample/Systems/OutOfScreenCleanupSystem.cpp
+        Sample/Systems/OutOfScreenCleanupSystem.h
         Sample/Systems/InitSystem.cpp
         Sample/Systems/InitSystem.h
         Sample/Components/PositionComponent.h

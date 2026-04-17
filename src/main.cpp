@@ -12,6 +12,7 @@
 #include "Sample/Systems/GameOverSystem.h"
 #include "Sample/Systems/InputSystem.h"
 #include "Sample/Systems/MovementSystem.h"
+#include "Sample/Systems/OutOfScreenCleanupSystem.h"
 #include "Sample/Systems/RenderSystem.h"
 #include "Sample/Systems/RestartSystem.h"
 #include "Sample/Systems/ScoringSystem.h"
@@ -44,6 +45,10 @@ int main() {
     systems.AddSystem(std::make_shared<ScoringSystem>(world));
     systems.AddSystem(std::make_shared<GameOverSystem>(world));
     systems.AddSystem(std::make_shared<RenderSystem>(world, window));
+    systems.AddSystem(std::make_shared<OutOfScreenCleanupSystem>(
+        world,
+        static_cast<float>(windowWidth),
+        static_cast<float>(windowHeight)));
 
     while (window.isOpen()) {
         systems.Update();
