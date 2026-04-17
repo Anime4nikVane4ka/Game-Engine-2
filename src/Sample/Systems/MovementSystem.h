@@ -5,7 +5,6 @@
 #include "../../Ecs/Filter/FilterBuilder.h"
 #include "../../Ecs/Systems/ISystem.h"
 
-#include "../Components/MoveInputEvent.h"
 #include "../Components/PositionComponent.h"
 #include "../Components/MovementComponent.h"
 
@@ -14,9 +13,8 @@ class MovementSystem final : public ISystem {
     ComponentStorage<MovementComponent>& _movementComponents;
 
     Filter _moveables;
-    Filter _moveInputEvents;
 
-    void Print(int ent);  // Р­С‚Рѕ С‚РѕР¶Рµ РјРѕР¶РЅРѕ РІС‹РЅРµСЃС‚Рё РІ РѕС‚РґРµР»СЊРЅСѓСЋ СЃРёСЃС‚РµРјСѓ
+    void Print(int ent); // Это тоже можно вынести в отдельную систему
 
 public:
     MovementSystem(World &world)
@@ -26,9 +24,6 @@ public:
             _moveables(FilterBuilder(world)
                 .With<PositionComponent>()
                 .With<MovementComponent>()
-                .Build()),
-            _moveInputEvents(FilterBuilder(world)
-                .With<MoveInputEvent>()
                 .Build())
     {
     }

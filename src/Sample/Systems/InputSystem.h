@@ -3,21 +3,29 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "../../Ecs/Filter/Filter.h"
+#include "../../Ecs/Filter/FilterBuilder.h"
 #include "../../Ecs/Systems/ISystem.h"
 
-#include "../Components/MoveInputEvent.h"
+#include "../Components/MovementComponent.h"
+#include "../Components/PlayerComponent.h"
+#include "../Components/ShootInputEvent.h"
 
 class InputSystem : public ISystem {
 
-    sf::RenderWindow& _window; // так делать не надо точно
-
-    ComponentStorage<MoveInputEvent>& _eventComponents;
+    ComponentStorage<ShootInputEvent>& _eventComponents;
+    ComponentStorage<MovementComponent>& _movementComponents;
+    Filter _players;
 
 public:
-    InputSystem(World &world, sf::RenderWindow& window)
+    InputSystem(World &world)
         : ISystem(world),
-        _window(window),
-        _eventComponents(world.GetStorage<MoveInputEvent>())
+        _eventComponents(world.GetStorage<ShootInputEvent>()),
+        _movementComponents(world.GetStorage<MovementComponent>()),
+        _players(FilterBuilder(world)
+            .With<PlayerComponent>()
+            .With<MovementComponent>()
+            .Build())
     {
 
     }

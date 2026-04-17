@@ -20,7 +20,7 @@ int main() {
     World world;
     SystemsManager systems(world);
     systems.AddInitializer(std::make_shared<InitSystem>(world));
-    systems.AddSystem(std::make_shared<InputSystem>(world, window));
+    systems.AddSystem(std::make_shared<InputSystem>(world));
     systems.AddSystem(std::make_shared<MovementSystem>(world));
 
     while (window.isOpen()) {

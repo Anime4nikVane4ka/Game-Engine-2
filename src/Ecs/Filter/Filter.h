@@ -20,8 +20,7 @@ class Filter {
 
 public:
     // ToDo:
-    Filter(World& world,
-        const std::vector<std::shared_ptr<BaseComponentStorage>>& componentStorages);
+    Filter(World& world, const std::vector<std::shared_ptr<BaseComponentStorage>>& componentStorages);
 
     class Iterator
     {

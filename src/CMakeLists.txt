@@ -17,7 +17,9 @@ set(SOURCES main.cpp
         Sample/Components/ShooterComponent.h
         Sample/Systems/InputSystem.cpp
         Sample/Systems/InputSystem.h
-        Sample/Components/MoveInputEvent.h
+        Sample/Systems/ShootSystem.cpp
+        Sample/Systems/ShootSystem.h
+        Sample/Components/ShootInputEvent.h
 )
 
 add_subdirectory(Ecs)
